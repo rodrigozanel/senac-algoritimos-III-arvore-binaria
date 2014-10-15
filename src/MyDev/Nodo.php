@@ -10,6 +10,8 @@ class Nodo implements NodoInterface
     private $valor;
     private $filhoEsquerda;
     private $filhoDireita;
+    private $pai;
+    private $altura;
 
     /**
      * @param int $val
@@ -34,12 +36,14 @@ class Nodo implements NodoInterface
         if($nodo->getValor() > $this->getValor()){
             if(!$this->getFilhoDireita()) {
                 $this->insereFilhoDireita($nodo);
+                $nodo->pai = $this;
             }else{
                 $this->getFilhoDireita()->insereNodo($nodo);
             }
         }else{
             if(!$this->getFilhoEsquerda()) {
                 $this->insereFilhoEsquerda($nodo);
+                $nodo->pai = $this;
             }else{
                 $this->getFilhoEsquerda()->insereNodo($nodo);
             }
@@ -61,6 +65,27 @@ class Nodo implements NodoInterface
     {
         $this->filhoDireita = $nodo;
     }
+
+    public function getAltura(){
+        
+    }
+
+    /**
+     *
+
+    public function getAltura(){
+        if($this->getFilhoEsquerda() && $this->getFilhoDireita()){
+            return $this->getFilhoEsquerda()->getAltura() - $this->getFilhoDireita()->getAltura();
+        }else{
+            if($this->getFilhoEsquerda()){
+                return $this->getFilhoEsquerda()->getAltura();
+            }else{
+                return 0 - $this->getFilhoDireita()->getAltura();
+            }
+        }
+    }
+     *
+     * */
 
     /**
      * @return int mixed
@@ -84,6 +109,22 @@ class Nodo implements NodoInterface
     public function getFilhoEsquerda()
     {
         return $this->filhoEsquerda;
+    }
+
+    /**
+     * @return Nodo
+     */
+    public function getPai()
+    {
+        return $this->pai;
+    }
+
+    /**
+     * @param mixed $pai
+     */
+    public function setPai($pai)
+    {
+        $this->pai = $pai;
     }
 
 
